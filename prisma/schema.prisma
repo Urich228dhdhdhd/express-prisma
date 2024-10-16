@@ -1,0 +1,103 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  username String  @unique
+  password String
+  role     String  @default("CURATOR")
+  groups   Group[]
+}
+
+model Group {
+  id              Int             @id @default(autoincrement())
+  group_name      String          @unique
+  curator_id      Int?
+  status_group    String          @default("ACTIVE")
+  semester_number Int             @default(1)
+  curator         User?           @relation(fields: [curator_id], references: [id])
+  student         Student[]
+  ListOfSubject   ListOfSubject[]
+}
+
+model Student {
+  id            Int       @id @default(autoincrement())
+  first_name    String?
+  middle_name   String?
+  last_name     String?
+  tel_number    String?
+  date_birthday DateTime?
+  group_id      Int
+  group         Group     @relation(fields: [group_id], references: [id])
+  Absence       Absence[]
+  Mark          Mark[]
+}
+
+model Subject {
+  id                 Int             @id @default(autoincrement())
+  subject_name_short String          @unique
+  subject_name_long  String          @unique
+  ListOfSubject      ListOfSubject[]
+  Mark               Mark[]
+}
+
+model ListOfSubject {
+  id              Int @id @default(autoincrement())
+  subject_id      Int
+  group_id        Int
+  semester_number Int
+
+  subject Subject @relation(fields: [subject_id], references: [id]) // Связь с таблицей Subject
+  group   Group   @relation(fields: [group_id], references: [id]) // Связь с таблицей Group
+
+  @@unique([subject_id, group_id, semester_number]) // Уникальность по комбинации полей
+}
+
+model Absence {
+  id              Int     @id @default(autoincrement())
+  student_id      Int
+  year            Int // Поле для года
+  month           Int // Поле для месяца (от 1 до 12)
+  absence_illness Int
+  absence_order   Int
+  absence_resp    Int
+  absence_disresp Int
+  student         Student @relation(fields: [student_id], references: [id])
+
+  @@unique([student_id, year, month])
+}
+
+model Semester {
+  id              Int    @id @default(autoincrement())
+  semester_number Int
+  semester_year   Int
+  Mark            Mark[]
+
+  @@unique([semester_number, semester_year])
+}
+
+model Mark {
+  id          Int    @id @default(autoincrement())
+  student_id  Int
+  semester_id Int
+  subject_id  Int
+  mark        String
+
+  student  Student  @relation(fields: [student_id], references: [id])
+  semester Semester @relation(fields: [semester_id], references: [id])
+  subject  Subject  @relation(fields: [subject_id], references: [id])
+
+  @@unique([student_id, semester_id, subject_id])
+}
