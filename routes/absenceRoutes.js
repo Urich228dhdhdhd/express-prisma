@@ -30,13 +30,13 @@ router.get("/:id", async (request, response) => {
     }
 })
 router.post('/check', async (request, response) => {
-    const { student_id, year, month } = request.body; // Получаем параметры из тела запроса
+    const { student_id, year, month } = request.body;
 
     try {
         const absence = await findAbsence(Number(student_id), Number(year), Number(month));
 
         if (absence) {
-            response.status(200).json(absence); // Возвращаем найденную запись
+            response.status(200).json(absence);
         } else {
             response.status(404).json({ message: 'Запись пропуска не найдена' });
         }
@@ -96,9 +96,8 @@ router.delete('/:id', async (request, response) => {
 router.post("/report", async (request, response) => {
     const { selectedGroups, selectedMonth, selectedAbsenceTypes, selectedYear } = request.body;
     try {
-        // Вызов функции getAbsenceReport с переданными параметрами
         const report = await getAbsenceReport(selectedGroups, selectedMonth, selectedAbsenceTypes, selectedYear);
-        response.status(200).json(report); // Отправляем результат отчета
+        response.status(200).json(report);
     } catch (error) {
         console.error('Ошибка при получении отчета:', error);
         response.status(500).json({ message: 'Ошибка при получении отчета' });
