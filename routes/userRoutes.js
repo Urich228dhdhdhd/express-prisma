@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getUsers, getUserById, createUser, deleteUserById, updateUser,findUserToLogin } = require('../controllers/userController');
+const { getUsers, getUserById, createUser, deleteUserById, updateUser, findUserToLogin } = require('../controllers/userController');
 
 
 // Получить всех пользователей
@@ -74,20 +74,26 @@ router.delete('/:id', async (request, response) => {
         response.status(404).json({ message: 'Пользователь не найден' });
     }
 });
-router.post("/login",async(request,response)=>{
-    const {username,password} = request.body;
+
+
+// Вход пользователя
+router.post("/login", async (request, response) => {
+    const { username, password } = request.body;
+
     if (!username || !password) {
         return response.status(400).json({ message: 'Логин и пароль обязательны' });
-
     }
+
     try {
-        const user = await findUserToLogin(username,password)
-        response.status(200).json({user:user});
+        const user = await findUserToLogin(username, password);
+        return response.status(200).json({ user });
     } catch (error) {
-        return response.status(401).json({ message:error.message});
+        if (error.message === 'Ошибка логина и пароля') {
+            return response.status(401).json({ message: 'Неверный логин или пароль' });
+        }
+        return response.status(500).json({ message: 'Ошибка сервера. Попробуйте позже.' });
     }
+});
 
-
-})
 
 module.exports = router;

@@ -13,30 +13,42 @@ const getSemesterById = async (id) => {
     })
     return semester
 }
-const createSemester = async (semester_number, semester_year) => {
-    const semester = await prisma.semester.create({
-        data: {
+const getSemesterByNumberAndYear = async (semester_number, semester_year) => {
+    const semester = await prisma.semester.findFirst({
+        where: {
             semester_number: semester_number,
             semester_year: semester_year,
         }
     })
     return semester
 }
-const updateSemesterById = async (id, semester_number, semester_year) => {
+const createSemester = async (semester_number, semester_year, semester_part) => {
+    const semester = await prisma.semester.create({
+        data: {
+            semester_number: semester_number,
+            semester_year: semester_year,
+            semester_part: semester_part, // Новое поле
+        }
+    });
+    return semester;
+}
+
+const updateSemesterById = async (id, semester_number, semester_year, semester_part) => {
     const data = {};
     if (semester_number) {
-        data.semester_number = semester_number
+        data.semester_number = semester_number;
     }
     if (semester_year) {
-        data.semester_year = semester_year
+        data.semester_year = semester_year;
+    }
+    if (semester_part) { // Проверка на обновление semester_part
+        data.semester_part = semester_part;
     }
     const semester = await prisma.semester.update({
-        where: {
-            id: id
-        },
+        where: { id: id },
         data: data
-    })
-    return semester
+    });
+    return semester;
 }
 const deleteSemesterById = async (id) => {
     const semester = await prisma.semester.delete({
@@ -50,4 +62,4 @@ const deleteSemesterById = async (id) => {
 
 
 
-module.exports = { getSemesters, getSemesterById, createSemester, deleteSemesterById, updateSemesterById };
+module.exports = { getSemesters, getSemesterById, createSemester, deleteSemesterById, updateSemesterById, getSemesterByNumberAndYear };

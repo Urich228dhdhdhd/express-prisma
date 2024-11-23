@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getGroups, getGroupById, createGroup, deleteGroupById, updateGroup } = require('../controllers/groupController')
+const { getGroups, getGroupById, createGroup, deleteGroupById, updateGroup, getGroupByRole, getGroupByRole2 } = require('../controllers/groupController')
 
 // Получение всех групп
 router.get('/', async (request, response) => {
@@ -28,6 +28,8 @@ router.get('/:id', async (request, response) => {
     }
 
 });
+
+
 // Создание группы
 router.post('/', async (request, response) => {
     const { group_name, curator_id, status_group, semester_number } = request.body;
@@ -36,11 +38,17 @@ router.post('/', async (request, response) => {
         response.status(201).json(group);
 
     } catch (error) {
-        console.error('Ошибка при создании группы:', error);
-        response.status(500).json({ message: 'Ошибка при создании группы' });
-    }
+        if (error.code === "P2002") {
+            return response.status(400).json({
+                message: 'Группа с таким названием уже существует.'
+            });
+        }
 
+        console.error('Ошибка при создании группы:', error);
+        response.status(500).json({ message: 'Ошибка сервера. Попробуйте позже.' });
+    }
 });
+
 // Удаление группы
 router.delete('/:id', async (request, response) => {
     try {
@@ -67,6 +75,28 @@ router.put('/:id', async (request, response) => {
     } catch (error) {
         console.error('Ошибка при обновлении группы:', error);
         response.status(500).json({ message: 'Ошибка при обновлении группы' });
+    }
+});
+// Получение групп и количества учащихся по id
+router.post("/by-role", async (request, response) => {
+    const { curator_id, role } = request.body;
+    try {
+        const groups = await getGroupByRole(Number(curator_id), role);
+        response.status(200).json(groups);
+    } catch (error) {
+        console.error('Ошибка при получении групп по роли:', error);
+        response.status(500).json({ message: 'Ошибка при получении групп по роли' });
+    }
+});
+// Получение групп и количества учащихся по id
+router.post("/by-role2", async (request, response) => {
+    const { curator_id, role } = request.body;
+    try {
+        const groups = await getGroupByRole2(Number(curator_id), role);
+        response.status(200).json(groups);
+    } catch (error) {
+        console.error('Ошибка при получении групп по роли:', error);
+        response.status(500).json({ message: 'Ошибка при получении групп по роли' });
     }
 });
 

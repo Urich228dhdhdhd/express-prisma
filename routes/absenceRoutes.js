@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAbsences, getAbsencesById, deleteAbsencesById, createAbsence, updateAbsencesById } = require('../controllers/absenceController');
+const { getAbsences, getAbsencesById, deleteAbsencesById, createAbsence, updateAbsencesById, findAbsence, getAbsenceReport } = require('../controllers/absenceController');
 // Все пропуски
 router.get('/', async (request, response) => {
     try {
@@ -28,9 +28,25 @@ router.get("/:id", async (request, response) => {
         response.status(500).json({ message: 'Ошибка при получении пропуска' });
 
     }
-
-
 })
+router.post('/check', async (request, response) => {
+    const { student_id, year, month } = request.body; // Получаем параметры из тела запроса
+
+    try {
+        const absence = await findAbsence(Number(student_id), Number(year), Number(month));
+
+        if (absence) {
+            response.status(200).json(absence); // Возвращаем найденную запись
+        } else {
+            response.status(404).json({ message: 'Запись пропуска не найдена' });
+        }
+    } catch (error) {
+        console.error('Ошибка при проверке существования записи:', error);
+        response.status(500).json({ message: 'Ошибка при проверке записи пропусков' });
+    }
+});
+
+
 // Создание пропусков
 router.post('/', async (request, response) => {
     const { student_id, year, month, absence_illness, absence_order, absence_resp, absence_disresp } = request.body;
@@ -76,6 +92,19 @@ router.delete('/:id', async (request, response) => {
     }
 
 });
+
+router.post("/report", async (request, response) => {
+    const { selectedGroups, selectedMonth, selectedAbsenceTypes, selectedYear } = request.body;
+    try {
+        // Вызов функции getAbsenceReport с переданными параметрами
+        const report = await getAbsenceReport(selectedGroups, selectedMonth, selectedAbsenceTypes, selectedYear);
+        response.status(200).json(report); // Отправляем результат отчета
+    } catch (error) {
+        console.error('Ошибка при получении отчета:', error);
+        response.status(500).json({ message: 'Ошибка при получении отчета' });
+    }
+});
+
 
 
 

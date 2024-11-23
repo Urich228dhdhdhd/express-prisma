@@ -23,7 +23,7 @@ const getUserById = async (id) => {
 
 
 const createUser = async (username, password, role) => {
-    const passwordHash = await bcrypt.hash(password,10);
+    const passwordHash = await bcrypt.hash(password, 10);
     const obj = await prisma.user.create({
         data: {
             username: username,
@@ -47,7 +47,7 @@ const updateUser = async (id, username, password, role) => {
         data.username = username
     }
     if (password) {
-        const passwordHash = await bcrypt.hash(password,10);
+        const passwordHash = await bcrypt.hash(password, 10);
         data.password = passwordHash;
     }
     if (role) {
@@ -63,22 +63,24 @@ const updateUser = async (id, username, password, role) => {
 
 };
 
-const findUserToLogin = async (username,password)=>{
+const findUserToLogin = async (username, password) => {
     const user = await prisma.user.findUnique({
-        where:{
-            username:username,
+        where: {
+            username: username,
         }
     });
-    if (!user) {
-        throw new Error('Пользователь с таким логином не найден');
-    }
-    const passwordHash = await bcrypt.compare(password,user.password)
-    if (passwordHash) {
-        return user;
-    } else {
-        throw new Error('Неправильный пароль');  
-    }
-    
-}
 
-module.exports = { getUsers, getUserById, createUser, deleteUserById, updateUser,findUserToLogin };
+    if (!user) {
+        throw new Error('Ошибка логина и пароля');
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordCorrect) {
+        throw new Error('Ошибка логина и пароля');
+    }
+
+    return user;
+};
+
+module.exports = { getUsers, getUserById, createUser, deleteUserById, updateUser, findUserToLogin };

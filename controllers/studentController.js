@@ -15,6 +15,50 @@ const getStudentsById = async (id) => {
     console.log(student);
     return student;
 }
+const getStudentsByIdAndRole = async (userId, userRole) => {
+    console.log('userId:', userId, 'userRole:', userRole);
+    let students;
+    if (userRole == 'CURATOR') {
+        students = await prisma.student.findMany({
+            where: {
+                group: {
+                    curator_id: userId,
+                },
+            },
+            orderBy: {
+                middle_name: "asc"
+            },
+
+        });
+    } else if (userRole == 'ADMINISTRATOR') {
+        students = await prisma.student.findMany({
+            orderBy: {
+                middle_name: "asc"
+            },
+        });
+
+    }
+    return students;
+};
+
+const getStudentsByGroupId = async (group_id) => {
+    console.time('getStudentsByGroupId');
+    // Начало измерения времени
+
+    let students;
+    students = await prisma.student.findMany({
+        where: {
+            group_id: group_id,
+        },
+        orderBy: {
+            middle_name: 'asc', // Сортировка по фамилии в алфавитном порядке
+        },
+    });
+    console.timeEnd('getStudentsByGroupId');
+    // Конец измерения времени
+
+    return students;
+}
 const createStudent = async (first_name, middle_name, last_name, tel_number, date_birthday, group_id) => {
     const student = await prisma.student.create({
         data: {
@@ -60,6 +104,7 @@ const updateStudent = async (id, first_name, middle_name, last_name, tel_number,
     return student;
 
 }
+
 const deleteStudent = async (id) => {
     const deleteStudent = await prisma.student.delete({
         where: {
@@ -71,4 +116,4 @@ const deleteStudent = async (id) => {
 
 
 
-module.exports = { getStudents, getStudentsById, createStudent, deleteStudent, updateStudent };
+module.exports = { getStudents, getStudentsById, createStudent, deleteStudent, updateStudent, getStudentsByIdAndRole, getStudentsByGroupId };

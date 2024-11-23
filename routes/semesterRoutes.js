@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getSemesters, getSemesterById, createSemester, deleteSemesterById, updateSemesterById } = require('../controllers/semesterController');
+const { getSemesters, getSemesterById, createSemester, deleteSemesterById, updateSemesterById, getSemesterByNumberAndYear } = require('../controllers/semesterController');
 // Все семестры
 router.get('/', async (request, response) => {
     try {
@@ -26,13 +26,44 @@ router.get('/:id', async (request, response) => {
     }
 });
 
+// Проверка существования семестра по полному номеру и году
+router.get('/check/:semester_number/:semester_year', async (request, response) => {
+    const { semester_number, semester_year } = request.params;
+    try {
+        const semester = await getSemesterByNumberAndYear(Number(semester_number), Number(semester_year));
+        if (semester) {
+            return response.status(200).json({ exists: true }); // Семестр существует
+        } else {
+            return response.status(200).json({ exists: false }); // Семестр не существует
+        }
+    } catch (error) {
+        console.error('Ошибка при проверке существования семестра:', error);
+        response.status(500).json({ message: 'Ошибка при проверке существования семестра' });
+    }
+});
+
+router.get("/getsemester/:semester_number/:semester_year", async (request, response) => {
+    const { semester_number, semester_year } = request.params;
+    try {
+        const semester = await getSemesterByNumberAndYear(Number(semester_number), Number(semester_year));
+        if (semester) {
+            return response.status(200).json(semester); // Семестр существует
+        } else {
+            return response.status(200).json(false)
+        }
+    } catch (error) {
+        console.error('Ошибка при получении семестра по semester_number и semester_year', error);
+        response.status(500).json({ message: 'Ошибка при получении семестра по semester_number и semester_year' });
+    }
+});
+
 
 
 // Создание семестра
 router.post("/", async (request, response) => {
-    const { semester_number, semester_year } = request.body;
+    const { semester_number, semester_year, semester_part } = request.body; // Обновлено для включения semester_part
     try {
-        const semester = await createSemester(semester_number, semester_year);
+        const semester = await createSemester(semester_number, semester_year, semester_part);
         response.status(201).json(semester);
     } catch (error) {
         console.error('Ошибка при создании семестра:', error);
@@ -40,26 +71,22 @@ router.post("/", async (request, response) => {
     }
 });
 
-
-// Обнавление семестра
+// Обновление семестра
 router.put("/:id", async (request, response) => {
-    const { semester_number, semester_year } = request.body;
+    const { semester_number, semester_year, semester_part } = request.body; // Обновлено для включения semester_part
     const semesterId = Number(request.params.id);
     try {
         const existingSemester = await getSemesterById(semesterId);
         if (!existingSemester) {
-            return response.status(404).json({ message: 'Семестер не найден' });
+            return response.status(404).json({ message: 'Семестр не найден' });
         }
 
-        const updSemester = await updateSemesterById(semesterId, semester_number, semester_year);
+        const updSemester = await updateSemesterById(semesterId, semester_number, semester_year, semester_part);
         response.status(200).json(updSemester);
     } catch (error) {
-        console.error('Ошибка при обнавлении семестра:', error);
-        response.status(500).json({ message: 'Ошибка при обнавлении семестра' });
+        console.error('Ошибка при обновлении семестра:', error);
+        response.status(500).json({ message: 'Ошибка при обновлении семестра' });
     }
-
-
-
 });
 
 

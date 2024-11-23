@@ -43,6 +43,9 @@ model Student {
   group         Group     @relation(fields: [group_id], references: [id])
   Absence       Absence[]
   Mark          Mark[]
+
+    @@unique([first_name, middle_name, last_name, tel_number]) 
+
 }
 
 model Subject {
@@ -59,17 +62,17 @@ model ListOfSubject {
   group_id        Int
   semester_number Int
 
-  subject Subject @relation(fields: [subject_id], references: [id]) // Связь с таблицей Subject
-  group   Group   @relation(fields: [group_id], references: [id]) // Связь с таблицей Group
+  subject Subject @relation(fields: [subject_id], references: [id]) 
+  group   Group   @relation(fields: [group_id], references: [id])
 
-  @@unique([subject_id, group_id, semester_number]) // Уникальность по комбинации полей
+  @@unique([subject_id, group_id, semester_number]) 
 }
 
 model Absence {
   id              Int     @id @default(autoincrement())
   student_id      Int
-  year            Int // Поле для года
-  month           Int // Поле для месяца (от 1 до 12)
+  year            Int 
+  month           Int 
   absence_illness Int
   absence_order   Int
   absence_resp    Int
@@ -81,11 +84,12 @@ model Absence {
 
 model Semester {
   id              Int    @id @default(autoincrement())
-  semester_number Int
-  semester_year   Int
-  Mark            Mark[]
+  semester_part   Int    
+  semester_number Int    
+  semester_year   Int    
+  Mark            Mark[] 
 
-  @@unique([semester_number, semester_year])
+  @@unique([semester_number, semester_year]) 
 }
 
 model Mark {

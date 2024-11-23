@@ -13,6 +13,38 @@ const getMarkById = async (id) => {
     })
     return markArj;
 }
+const getFilteredMarks = async (group_id, semester_number, subject_id, semester_year) => {
+    console.log("group_id:" + group_id + "semester_number:" + semester_number + "subject_id:" + subject_id + "semester_year:" + semester_year)
+    const semesterExists = await prisma.semester.findFirst({
+        where: {
+            semester_number: semester_number,
+            semester_year: semester_year,
+        },
+    });
+    if (!semesterExists) {
+        console.log("семестор не найден");
+        return null;
+
+    }
+    console.log(semesterExists)
+    const marks = await prisma.mark.findMany({
+        where: {
+            subject_id: subject_id,
+            student: {
+                group_id: group_id,
+            },
+            semester: {
+                semester_number: semester_number,
+                semester_year: semester_year
+            },
+        }
+    });
+
+
+    // console.log(marks);
+    return marks;
+};
+
 const createMark = async (student_id, semester_id, subject_id, mark) => {
     const markArj = await prisma.mark.create({
         data: {
@@ -56,4 +88,4 @@ const deleteMarkById = async (id) => {
 }
 
 
-module.exports = { getMarks, getMarkById, createMark, updateMark, deleteMarkById };
+module.exports = { getMarks, getMarkById, createMark, updateMark, deleteMarkById, getFilteredMarks };

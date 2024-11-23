@@ -31,9 +31,13 @@ router.post('/', async (request, response) => {
         response.status(201).json(subject);
 
     } catch (error) {
-        console.error('Ошибка при создании предмета:', error);
-        response.status(500).json({ message: 'Ошибка при создании предмета' });
+        if (error.code === 'P2002') {
+            return response.status(400).json({
+                message: 'Такой предмет уже существует.'
+            });
+        }
 
+        response.status(500).json({ message: 'Ошибка сервера. Попробуйте позже.' });
     }
 
 })
@@ -57,10 +61,15 @@ router.put("/:id", async (request, response) => {
         const subject = await updateSubject(subjectId, subject_name_short, subject_name_long);
         response.status(200).json(subject);
 
-    } catch (error) {
-        console.error('Ошибка при обновлении предмета:', error);
-        response.status(500).json({ message: 'Ошибка при обновлении предмета' });
 
+    } catch (error) {
+        if (error.code === 'P2002') {
+            return response.status(400).json({
+                message: 'Такой предмет уже существует.'
+            });
+        }
+
+        response.status(500).json({ message: 'Ошибка сервера. Попробуйте позже.' });
     }
 })
 

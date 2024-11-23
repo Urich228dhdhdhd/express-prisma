@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getMarks, getMarkById, createMark, updateMark, deleteMarkById } = require('../controllers/markController');
+const { getMarks, getMarkById, createMark, updateMark, deleteMarkById, getFilteredMarks } = require('../controllers/markController');
 const { route } = require('./userRoutes');
 // Все оценки
 router.get("/", async (request, response) => {
@@ -24,6 +24,18 @@ router.get("/:id", async (request, response) => {
     } catch (error) {
         console.error('Ошибка при получении оценки:', error);
         response.status(404).json({ message: 'Оценка не найдена' });
+    }
+});
+//Получение существующих оценок по группе, номеру семестра и предметы
+router.get("/filter/group/:group_id/semester/:semester_number/subject/:subject_id/year/:semester_year", async (request, response) => {
+    const { group_id, semester_number, subject_id, semester_year } = request.params;
+
+    try {
+        const marks = await getFilteredMarks(Number(group_id), Number(semester_number), Number(subject_id), Number(semester_year));
+        response.status(200).json(marks);
+    } catch (error) {
+        console.error('Ошибка при получении оценок с фильтрацией:', error);
+        response.status(500).json({ message: 'Ошибка при получении оценок с фильтрацией' });
     }
 });
 // Создание оценки
