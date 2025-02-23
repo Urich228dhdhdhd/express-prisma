@@ -49,7 +49,7 @@ router.get("/getsemester/:semester_number/:semester_year", async (request, respo
         if (semester) {
             return response.status(200).json(semester); // Семестр существует
         } else {
-            return response.status(200).json(false)
+            // return response.status(200).json(false)
         }
     } catch (error) {
         console.error('Ошибка при получении семестра по semester_number и semester_year', error);

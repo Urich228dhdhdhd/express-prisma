@@ -29,27 +29,28 @@ const createAbsence = async (student_id, year, month, absence_illness, absence_o
     return absence;
 }
 const updateAbsencesById = async (id, student_id, year, month, absence_illness, absence_order, absence_resp, absence_disresp) => {
+
     const data = {};
     // Проверяем только на наличие значения
-    if (student_id) {
+    if (student_id !== undefined && student_id !== null) {
         data.student_id = student_id;
     }
-    if (year) {
+    if (year !== undefined && year !== null) {
         data.year = year;
     }
-    if (month) {
+    if (month !== undefined && month !== null) {
         data.month = month;
     }
-    if (absence_illness) {
+    if (absence_illness !== undefined && absence_illness !== null) {
         data.absence_illness = absence_illness;
     }
-    if (absence_order) {
+    if (absence_order !== undefined && absence_order !== null) {
         data.absence_order = absence_order;
     }
-    if (absence_resp) {
+    if (absence_resp !== undefined && absence_resp !== null) {
         data.absence_resp = absence_resp;
     }
-    if (absence_disresp) {
+    if (absence_disresp !== undefined && absence_disresp !== null) {
         data.absence_disresp = absence_disresp;
     }
     const absence = await prisma.absence.update({

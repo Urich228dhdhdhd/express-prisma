@@ -32,9 +32,11 @@ router.get('/:id', async (request, response) => {
 
 // Создание группы
 router.post('/', async (request, response) => {
-    const { group_name, curator_id, status_group, semester_number } = request.body;
+    const { group_name, curator_id, status_group, start_year, end_year } = request.body;
+    console.log(`${group_name},${curator_id},${status_group},${start_year},${end_year}`);
+
     try {
-        const group = await createGroup(group_name, curator_id, status_group, semester_number);
+        const group = await createGroup(group_name, curator_id, status_group, start_year, end_year);
         response.status(201).json(group);
 
     } catch (error) {
@@ -62,7 +64,7 @@ router.delete('/:id', async (request, response) => {
 });
 // Обнавление группы
 router.put('/:id', async (request, response) => {
-    const { group_name, curator_id, status_group, semester_number } = request.body
+    const { group_name, curator_id, status_group, start_year, end_year } = request.body
     const groupId = Number(request.params.id);
 
     try {
@@ -70,9 +72,14 @@ router.put('/:id', async (request, response) => {
         if (!existingGroup) {
             return response.status(404).json({ message: 'Группа не найдена' });
         }
-        const updatedGroup = await updateGroup(groupId, group_name, curator_id, status_group, semester_number);
+        const updatedGroup = await updateGroup(groupId, group_name, curator_id, status_group, start_year, end_year);
         response.status(200).json(updatedGroup);
     } catch (error) {
+        if (error.code === "P2002") {
+            return response.status(400).json({
+                message: 'Группа с таким названием уже существует.'
+            });
+        }
         console.error('Ошибка при обновлении группы:', error);
         response.status(500).json({ message: 'Ошибка при обновлении группы' });
     }
@@ -82,6 +89,8 @@ router.post("/by-role", async (request, response) => {
     const { curator_id, role } = request.body;
     try {
         const groups = await getGroupByRole(Number(curator_id), role);
+        console.log(groups);
+
         response.status(200).json(groups);
     } catch (error) {
         console.error('Ошибка при получении групп по роли:', error);

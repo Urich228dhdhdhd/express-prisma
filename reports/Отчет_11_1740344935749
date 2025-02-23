@@ -1,0 +1,916 @@
+{
+  "type": "Performance",
+  "report_data": {
+    "allMarks": [
+      {
+        "student": "Алексеенко А.И",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "6",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "7",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "7",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Андриевич А.П",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "4",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "10",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "10",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "8",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Башмаков И.А",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "7",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "6",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "8",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Василькова А.С",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "4",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "6",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "10",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "8",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "10",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Вежновец Е.Д",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "7",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "10",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "7",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "8",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Велько А.Н",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "10",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "9",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "7",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Войтешонок М.В",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "6",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "9",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "6",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Волосюк К.Е",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "9",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "8",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "6",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Дроник А.Б",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "10",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "10",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "9",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "9",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "7",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Ероховец П.Г",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "9",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "10",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "5",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "10",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Казак М.О",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "7",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "10",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "10",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "6",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "5",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Карачун Д.Г",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "6",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "4",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "6",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "9",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "9",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Кашталян Н.Р",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "4",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "4",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "6",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "5",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Келбас И.Ю",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "9",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "7",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "4",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "7",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "6",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Маркина К.А",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "9",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "9",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "9",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "5",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Мартьянов Я.В",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "9",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "7",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "4",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "8",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "7",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Матукевич А.Ю",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "10",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "9",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "8",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Матусевич Т.К",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "4",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "6",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "7",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "10",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "7",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Мурашко Д.А",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "9",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "10",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Муха Е.В",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "10",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "9",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "4",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "6",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Овсяник С.Ф",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "4",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "7",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "6",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "8",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Рогов П.С",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "4",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "5",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "8",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Русак Н.Л",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "7",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "7",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "7",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "8",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "7",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Сермяжко В.П",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "6",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "6",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "9",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Уселёнок В.Э",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "10",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "8",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "9",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Чалайдюк А.Т",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "4",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "6",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "6",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "6",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "7",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Шапоткин Д.В",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "7",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "8",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "8",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "9",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Явнюк С.О",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "7",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "10",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "6",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "8",
+            "is_exam": false
+          }
+        ]
+      },
+      {
+        "student": "Янукович В.Г",
+        "subjects": [
+          {
+            "subject": "Бел. яз.",
+            "marks": "9",
+            "is_exam": true
+          },
+          {
+            "subject": "Матем.",
+            "marks": "5",
+            "is_exam": true
+          },
+          {
+            "subject": "Рус. яз.",
+            "marks": "10",
+            "is_exam": true
+          },
+          {
+            "subject": "Вс. история",
+            "marks": "9",
+            "is_exam": false
+          },
+          {
+            "subject": "Обществ.",
+            "marks": "7",
+            "is_exam": false
+          }
+        ]
+      }
+    ],
+    "performancePercent": "77.0",
+    "qualityOfKnowledgePercent": "63.0",
+    "studentsLearningPercent": "62.0"
+  },
+  "selected_group": {
+    "id": 1,
+    "group_name": "68МС",
+    "curator_id": 2,
+    "status_group": "ACTIVE",
+    "start_year": 2020,
+    "end_year": 2025
+  },
+  "period": "1-2",
+  "selected_subjects": [
+    {
+      "id": 1,
+      "subject_name_short": "Бел. яз.",
+      "subject_name_long": "Белорусский язык"
+    },
+    {
+      "id": 4,
+      "subject_name_short": "Матем.",
+      "subject_name_long": "Математика"
+    },
+    {
+      "id": 5,
+      "subject_name_short": "Рус. яз.",
+      "subject_name_long": "Русский язык"
+    },
+    {
+      "id": 10,
+      "subject_name_short": "Обществ.",
+      "subject_name_long": "Обществоведение"
+    },
+    {
+      "id": 8,
+      "subject_name_short": "Вс. история",
+      "subject_name_long": "Всемирная история"
+    }
+  ]
+}

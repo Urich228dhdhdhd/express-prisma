@@ -22,6 +22,7 @@ const getStudentsByIdAndRole = async (userId, userRole) => {
         students = await prisma.student.findMany({
             where: {
                 group: {
+                    status_group: "ACTIVE",
                     curator_id: userId,
                 },
             },
@@ -32,6 +33,12 @@ const getStudentsByIdAndRole = async (userId, userRole) => {
         });
     } else if (userRole == 'ADMINISTRATOR') {
         students = await prisma.student.findMany({
+            where: {
+                group: {
+                    status_group: "ACTIVE",
+
+                }
+            },
             orderBy: {
                 middle_name: "asc"
             },
@@ -42,7 +49,7 @@ const getStudentsByIdAndRole = async (userId, userRole) => {
 };
 
 const getStudentsByGroupId = async (group_id) => {
-    console.time('getStudentsByGroupId');
+    // console.time('getStudentsByGroupId');
     // Начало измерения времени
 
     let students;
@@ -54,12 +61,28 @@ const getStudentsByGroupId = async (group_id) => {
             middle_name: 'asc', // Сортировка по фамилии в алфавитном порядке
         },
     });
-    console.timeEnd('getStudentsByGroupId');
+    // console.timeEnd('getStudentsByGroupId');
     // Конец измерения времени
 
     return students;
 }
 const createStudent = async (first_name, middle_name, last_name, tel_number, date_birthday, group_id) => {
+    const isStudentExist = await prisma.student.findUnique({
+        where: {
+            first_name_middle_name_last_name_tel_number: {
+                first_name: first_name,
+                middle_name: middle_name,
+                last_name: last_name,
+                tel_number: tel_number,
+            },
+        },
+    });
+
+    if (isStudentExist) {
+        console.log("Исключение сработало");
+        throw new Error("Такой студент уже существует");
+    }
+
     const student = await prisma.student.create({
         data: {
             first_name: first_name,
@@ -75,6 +98,7 @@ const createStudent = async (first_name, middle_name, last_name, tel_number, dat
 
 
 const updateStudent = async (id, first_name, middle_name, last_name, tel_number, date_birthday, group_id) => {
+
     const data = {};
     if (first_name) {
         data.first_name = first_name
@@ -94,12 +118,31 @@ const updateStudent = async (id, first_name, middle_name, last_name, tel_number,
     if (group_id) {
         data.group_id = group_id
     }
+
+
+    if (first_name || middle_name || last_name || tel_number) {
+        const existingStudent = await prisma.student.findFirst({
+            where: {
+                first_name: first_name,
+                middle_name: middle_name,
+                last_name: last_name,
+                tel_number: tel_number,
+                NOT: { id: id },
+            },
+        });
+
+        if (existingStudent) {
+            console.log("Исключение сработало");
+            throw new Error("Студент с такими данными уже существует");
+        }
+    }
     const student = await prisma.student.update({
         where: {
             id: id
         },
         data: data
     })
+
     console.log(student)
     return student;
 

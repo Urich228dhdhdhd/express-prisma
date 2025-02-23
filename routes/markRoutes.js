@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { getMarks, getMarkById, createMark, updateMark, deleteMarkById, getFilteredMarks } = require('../controllers/markController');
-const { route } = require('./userRoutes');
 // Все оценки
 router.get("/", async (request, response) => {
     try {
@@ -40,9 +39,9 @@ router.get("/filter/group/:group_id/semester/:semester_number/subject/:subject_i
 });
 // Создание оценки
 router.post("/", async (request, response) => {
-    const { student_id, semester_id, subject_id, mark } = request.body;
+    const { student_id, semester_id, subject_id, mark, is_exam } = request.body;
     try {
-        const markarj = await createMark(student_id, semester_id, subject_id, mark);
+        const markarj = await createMark(student_id, semester_id, subject_id, mark, Boolean(is_exam));
         response.status(201).json(markarj)
     } catch (error) {
         console.error('Ошибка при создании оценки:', error);
@@ -52,14 +51,14 @@ router.post("/", async (request, response) => {
 
 // Изменение оценки
 router.put('/:id', async (request, response) => {
-    const { student_id, semester_id, subject_id, mark } = request.body;
+    const { student_id, semester_id, subject_id, mark, is_exam } = request.body;
     const markId = Number(request.params.id);
     try {
         const existingMark = await getMarkById(markId);
         if (!existingMark) {
             return response.status(404).json({ message: 'Оценка не найдена' });
         }
-        const markArj = await updateMark(markId, student_id, semester_id, subject_id, mark);
+        const markArj = await updateMark(markId, student_id, semester_id, subject_id, mark, Boolean(is_exam));
         response.status(200).json(markArj);
     } catch (error) {
         console.error('Ошибка при обновлении оценки:', error);

@@ -63,6 +63,7 @@ router.post('/', async (request, response) => {
 // Обновление пропусков
 router.put('/:id', async (request, response) => {
     const { student_id, year, month, absence_illness, absence_order, absence_resp, absence_disresp } = request.body;
+
     const absenceId = Number(request.params.id);
     try {
         const existingAbsence = await getAbsencesById(absenceId);

@@ -13,6 +13,30 @@ const getSemesterById = async (id) => {
     })
     return semester
 }
+const getSemestersByGroupId = async (group_id) => {
+    const semesters = await prisma.semester.findMany({
+        where: {
+            ListOfSubject: {
+                some: {
+                    group_id: group_id
+
+                }
+            }
+        }
+    })
+    return semesters;
+}
+const getSemestersByIds = async (ids) => {
+    const semesters = await prisma.semester.findMany({
+        where: {
+            id: {
+                in: ids
+            }
+        }
+    })
+    return semesters
+}
+
 const getSemesterByNumberAndYear = async (semester_number, semester_year) => {
     const semester = await prisma.semester.findFirst({
         where: {
@@ -62,4 +86,4 @@ const deleteSemesterById = async (id) => {
 
 
 
-module.exports = { getSemesters, getSemesterById, createSemester, deleteSemesterById, updateSemesterById, getSemesterByNumberAndYear };
+module.exports = { getSemesters, getSemesterById, createSemester, deleteSemesterById, updateSemesterById, getSemesterByNumberAndYear, getSemestersByIds, getSemestersByGroupId };

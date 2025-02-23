@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 const getSubjects = async () => {
     const subjects = await prisma.subject.findMany();
-    console.log(subjects)
+    // console.log(subjects)
     return subjects;
 }
 const getSubjectById = async (id) => {
@@ -12,8 +12,18 @@ const getSubjectById = async (id) => {
             id: id
         }
     })
-    console.log(subject)
     return subject;
+
+}
+const getSubjectsByIds = async (ids) => {
+    const subjects = await prisma.subject.findMany({
+        where: {
+            id: {
+                in: ids,
+            }
+        }
+    })
+    return subjects;
 
 }
 const createSubject = async (subject_name_short, subject_name_long) => {
@@ -56,4 +66,4 @@ const updateSubject = async (id, subject_name_short, subject_name_long) => {
 
 
 
-module.exports = { getSubjects, getSubjectById, createSubject, deleteSubject, updateSubject };
+module.exports = { getSubjects, getSubjectById, createSubject, deleteSubject, updateSubject, getSubjectsByIds };

@@ -62,12 +62,13 @@ router.get('/group/:group_id/subject/:subject_id', async (request, response) => 
     }
 });
 // Удаление листов по subject_id и группе и номеру семестра
-router.delete('/group/:group_id/subject/:subject_id/semester_number/:semester_number', async (request, response) => {
+router.delete('/group/:group_id/subject/:subject_id/semester/:semester_id', async (request, response) => {
     try {
         const groupId = Number(request.params.group_id);
         const subjectId = Number(request.params.subject_id);
-        const semester_number = Number(request.params.semester_number);
-        const listofSub = await deleteListOfSubjectByGroupIdSubjectIdAndSemester(subjectId, groupId,semester_number);
+        const semester_id = Number(request.params.semester_id);
+
+        const listofSub = await deleteListOfSubjectByGroupIdSubjectIdAndSemester(groupId, subjectId, semester_id);
         response.status(204).send(); // Успешное удаление, но без контента
     } catch (error) {
         console.error('Ошибка при удалении listOfSubject:', error);
@@ -77,16 +78,16 @@ router.delete('/group/:group_id/subject/:subject_id/semester_number/:semester_nu
 
 // Проверка существования записи
 router.post('/isexist', async (request, response) => {
-    const { subject_id, group_id, semester_number } = request.body;
+    const { subject_id, group_id, semester_id } = request.body;
 
     try {
-        const exists = await checkListOfSubjectExists(subject_id, group_id, semester_number);
-        
+        const exists = await checkListOfSubjectExists(subject_id, group_id, semester_id);
+
         if (exists) {
-            return response.status(200).json( exists );
+            return response.status(200).json(exists);
         }
 
-        return response.status(404).json(false );
+        return response.status(404).json(false);
     } catch (error) {
         console.error('Ошибка при проверке существования listOfSubject:', error);
         response.status(500).json({ message: 'Ошибка при проверке существования listOfSubject' });
@@ -96,16 +97,16 @@ router.post('/isexist', async (request, response) => {
 
 // Создание новой записи
 router.post('/', async (request, response) => {
-    const { subject_id, group_id, semester_number } = request.body;
+    const { subject_id, group_id, semester_id } = request.body;
 
     try {
-        const exists = await checkListOfSubjectExists(subject_id, group_id, semester_number);
-        
+        const exists = await checkListOfSubjectExists(subject_id, group_id, semester_id);
+
         if (exists) {
             return response.status(400).json({ message: 'Запись с такими параметрами уже существует' });
         }
 
-        const listofSub = await createLostOfSubject(subject_id, group_id, semester_number);
+        const listofSub = await createLostOfSubject(subject_id, group_id, semester_id);
         response.status(201).json(listofSub);
     } catch (error) {
         console.error('Ошибка при создании listOfSubject:', error);
@@ -126,9 +127,9 @@ router.delete("/:id", async (request, response) => {
 
 // Обновление записи по ID
 router.put('/:id', async (request, response) => {
-    const { subject_id, group_id, semester_number } = request.body;
+    const { subject_id, group_id, semester_id } = request.body;
     try {
-        const listofSub = await updateListOfSub(Number(request.params.id), subject_id, group_id, semester_number);
+        const listofSub = await updateListOfSub(Number(request.params.id), subject_id, group_id, semester_id);
         response.status(200).json(listofSub);
     } catch (error) {
         console.error('Ошибка при обновлении listOfSubject:', error);

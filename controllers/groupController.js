@@ -15,13 +15,14 @@ const getGroupById = async (id) => {
     })
     return group;
 };
-const createGroup = async (group_name, curator_id, status_group, semester_number) => {
+const createGroup = async (group_name, curator_id, status_group, start_year, end_year) => {
     const group = await prisma.group.create({
         data: {
             group_name: group_name,
             curator_id: curator_id,
             status_group: status_group,
-            semester_number: semester_number,
+            start_year: start_year,
+            end_year: end_year,
         }
     });
     return group;
@@ -35,7 +36,7 @@ const deleteGroupById = async (id) => {
     return group;
 };
 // Обнавление группы
-const updateGroup = async (id, group_name, curator_id, status_group, semester_number) => {
+const updateGroup = async (id, group_name, curator_id, status_group, start_year, end_year) => {
     const data = {};
     if (group_name) {
         data.group_name = group_name
@@ -46,9 +47,13 @@ const updateGroup = async (id, group_name, curator_id, status_group, semester_nu
     if (status_group) {
         data.status_group = status_group
     }
-    if (semester_number) {
-        data.semester_number = semester_number
+    if (start_year) {
+        data.start_year = start_year
     }
+    if (end_year) {
+        data.end_year = end_year
+    }
+
     const group = await prisma.group.update({
         where: {
             id: id
@@ -59,7 +64,7 @@ const updateGroup = async (id, group_name, curator_id, status_group, semester_nu
     return group;
 }
 const getGroupByRole = async (curator_id, role) => {
-    // console.log('curator_id:', curator_id, 'role:', role); // Для отладки
+    console.log('curator_id:', curator_id, 'role:', role); // Для отладки
 
     let groups;
     if (role == "CURATOR") {
@@ -114,7 +119,7 @@ const getGroupByRole = async (curator_id, role) => {
 };
 
 const getGroupByRole2 = async (curator_id, role) => {
-    console.log('curator_id:', curator_id, 'role:', role); // Для отладки
+    // console.log('curator_id:', curator_id, 'role:', role); // Для отладки
 
     let groups;
     if (role == "CURATOR") {

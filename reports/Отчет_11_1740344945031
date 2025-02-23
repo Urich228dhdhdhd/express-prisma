@@ -1,0 +1,47 @@
+{
+  "type": "Absence",
+  "report_data": [
+    {
+      "group_id": 1,
+      "absence_report": {
+        "illness": 106,
+        "order": 27,
+        "resp": null,
+        "disresp": 56
+      }
+    },
+    {
+      "group_id": 2,
+      "absence_report": {
+        "illness": 120,
+        "order": 37,
+        "resp": null,
+        "disresp": 30
+      }
+    }
+  ],
+  "selected_groups": [
+    {
+      "id": 1,
+      "group_name": "68МС",
+      "curator_id": 2,
+      "status_group": "ACTIVE",
+      "start_year": 2020,
+      "end_year": 2025
+    },
+    {
+      "id": 2,
+      "group_name": "56МС",
+      "curator_id": null,
+      "status_group": "ACTIVE",
+      "start_year": 2019,
+      "end_year": 2023
+    }
+  ],
+  "date": "2025-02-01T00:00:00.000",
+  "types_of_absence": [
+    "absenceIllness",
+    "absenceOrder",
+    "absenceDisresp"
+  ]
+}

@@ -30,21 +30,26 @@ router.get('/:id', async (request, response) => {
 
 // Создать нового пользователя
 router.post('/', async (request, response) => {
-    const { username, password, role } = request.body;
-    if (!username || !password || !role) {
+    const { username, password, role, first_name, middle_name, last_name } = request.body;
+    if (!username || !password || !role || !first_name || !middle_name || !last_name) {
         return response.status(400).json({ message: 'Все поля обязательны' });
     }
     try {
-        const user = await createUser(username, password, role);
+        const user = await createUser(username, password, role, first_name, middle_name, last_name);
+
         response.status(201).json(user);
     } catch (error) {
+        if (error.code === 'P2002') {
+
+            return response.status(409).json({ message: 'Пользователь с таким логином уже существует' });
+        }
         console.error('Ошибка при создании пользователя:', error);
         response.status(500).json({ message: 'Ошибка при создании пользователя' });
     }
 });
 // Обновить пользователя
 router.put('/:id', async (request, response) => {
-    const { username, password, role } = request.body;
+    const { username, password, role, first_name, middle_name, last_name } = request.body;
     const userId = Number(request.params.id);
 
     try {
@@ -55,9 +60,13 @@ router.put('/:id', async (request, response) => {
         }
 
 
-        const updatedUser = await updateUser(userId, username, password, role);
+        const updatedUser = await updateUser(userId, username, password, role, first_name, middle_name, last_name);
         response.status(200).json(updatedUser);
     } catch (error) {
+        if (error.code === 'P2002') {
+
+            return response.status(409).json({ message: 'Пользователь с таким логином уже существует' });
+        }
         console.error('Ошибка при обновлении пользователя:', error);
         response.status(500).json({ message: 'Ошибка при обновлении пользователя' });
     }
@@ -91,6 +100,7 @@ router.post("/login", async (request, response) => {
         if (error.message === 'Ошибка логина и пароля') {
             return response.status(401).json({ message: 'Неверный логин или пароль' });
         }
+
         return response.status(500).json({ message: 'Ошибка сервера. Попробуйте позже.' });
     }
 });

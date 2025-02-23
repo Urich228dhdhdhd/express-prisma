@@ -22,10 +22,13 @@ const getUserById = async (id) => {
 };
 
 
-const createUser = async (username, password, role) => {
+const createUser = async (username, password, role, first_name, middle_name, last_name) => {
     const passwordHash = await bcrypt.hash(password, 10);
     const obj = await prisma.user.create({
         data: {
+            first_name: first_name,
+            middle_name: middle_name,
+            last_name: last_name,
             username: username,
             password: passwordHash,
             role: role
@@ -41,7 +44,7 @@ const deleteUserById = async (id) => {
     });
     return user;
 };
-const updateUser = async (id, username, password, role) => {
+const updateUser = async (id, username, password, role, first_name, middle_name, last_name) => {
     const data = {};
     if (username) {
         data.username = username
@@ -52,6 +55,15 @@ const updateUser = async (id, username, password, role) => {
     }
     if (role) {
         data.role = role
+    }
+    if (first_name) {
+        data.first_name = first_name
+    }
+    if (middle_name) {
+        data.middle_name = middle_name
+    }
+    if (last_name) {
+        data.last_name = last_name
     }
     const user = await prisma.user.update({
         where: {

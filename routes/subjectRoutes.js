@@ -15,6 +15,9 @@ router.get('/', async (request, response) => {
 router.get('/:id', async (request, response) => {
     try {
         const subject = await getSubjectById(Number(request.params.id));
+        if (!subject) {
+            return response.status(404).json({ message: 'Предмет не найден' });
+        }
         response.status(200).json(subject);
     } catch (error) {
         console.error('Ошибка при получении предмета:', error);

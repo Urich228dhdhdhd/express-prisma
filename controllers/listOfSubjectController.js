@@ -2,22 +2,7 @@ const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient();
 // получение всех листов
 const getlistOfSubject = async () => {
-    const listofSub = await prisma.listOfSubject.findMany({
-        // include: {
-        //     group: {
-        //         select: {
-        //             id: true,
-        //             group_name: true,
-        //         }
-        //     },
-        //     subject: {
-        //         select: {
-        //             id: true,
-        //             subject_name_short: true,
-        //         }
-        //     }
-        // }
-    })
+    const listofSub = await prisma.listOfSubject.findMany();
     return listofSub;
 }
 
@@ -44,7 +29,7 @@ const getlistOfSubjectByGroupId = async (group_id) => {
 const getlistOfSubjectBySubGroupId = async (subject_id, group_id) => {
     const listofSub = await prisma.listOfSubject.findMany({
         where: {
-            group_id:group_id,
+            group_id: group_id,
             subject_id: subject_id,
         }
     })
@@ -53,12 +38,12 @@ const getlistOfSubjectBySubGroupId = async (subject_id, group_id) => {
 }
 
 // Создание листа
-const createLostOfSubject = async (subject_id, group_id, semester_number) => {
+const createLostOfSubject = async (subject_id, group_id, semester_id) => {
     const listofSub = await prisma.listOfSubject.create({
         data: {
             subject_id: subject_id,
             group_id: group_id,
-            semester_number: semester_number
+            semester_id: semester_id
         }
     })
     return listofSub;
@@ -73,7 +58,7 @@ const deletelistofSubById = async (id) => {
     return listofSub;
 }
 // Обновление листа
-const updateListOfSub = async (id, subject_id, group_id, semester_number) => {
+const updateListOfSub = async (id, subject_id, group_id, semester_id) => {
     const data = {};
     if (subject_id) {
         data.subject_id = subject_id
@@ -81,8 +66,8 @@ const updateListOfSub = async (id, subject_id, group_id, semester_number) => {
     if (group_id) {
         data.group_id = group_id
     }
-    if (semester_number) {
-        data.semester_number = semester_number
+    if (semester_id) {
+        data.semester_id = semester_id
     }
     const listofSub = await prisma.listOfSubject.update({
         where: {
@@ -92,26 +77,26 @@ const updateListOfSub = async (id, subject_id, group_id, semester_number) => {
     })
     return listofSub;
 }
-// Удаление листа по group_id, subject_id и semester_number
-const deleteListOfSubjectByGroupIdSubjectIdAndSemester = async (group_id, subject_id, semester_number) => {
+// Удаление листа по group_id, subject_id и semester_id
+const deleteListOfSubjectByGroupIdSubjectIdAndSemester = async (group_id, subject_id, semester_id) => {
     const deletedRecords = await prisma.listOfSubject.deleteMany({
         where: {
             group_id: group_id,
             subject_id: subject_id,
-            semester_number: semester_number,
+            semester_id: semester_id,
         },
     });
     return deletedRecords; // Возвращаем количество удаленных записей
 };
 
 
-    // Проверка наличия записи по группе, предмету и номеру семестра
-const checkListOfSubjectExists = async (subject_id, group_id, semester_number) => {
+// Проверка наличия записи по группе, предмету и номеру семестра
+const checkListOfSubjectExists = async (subject_id, group_id, semester_id) => {
     const existingRecord = await prisma.listOfSubject.findFirst({
         where: {
             subject_id: subject_id,
             group_id: group_id,
-            semester_number: semester_number
+            semester_id: semester_id
         }
     });
     return existingRecord !== null; // Возвращаем true, если запись найдена, иначе false
@@ -125,8 +110,8 @@ const getSubjectIdsByGroupId = async (groupId) => {
             subject_id: true,
             subject: {
                 select: {
-                    subject_name_short: true ,// Получаем краткое имя предмета
-                    subject_name_long:true,
+                    subject_name_short: true,// Получаем краткое имя предмета
+                    subject_name_long: true,
                 }
             }
         },
@@ -136,7 +121,6 @@ const getSubjectIdsByGroupId = async (groupId) => {
     return subjects;
 };
 
-  
 
 
 
@@ -144,4 +128,5 @@ const getSubjectIdsByGroupId = async (groupId) => {
 
 
 
-module.exports = { getlistOfSubject, getlistOfSubjectById, createLostOfSubject, deletelistofSubById,updateListOfSub, getlistOfSubjectByGroupId,getlistOfSubjectBySubGroupId,checkListOfSubjectExists,deleteListOfSubjectByGroupIdSubjectIdAndSemester ,getSubjectIdsByGroupId};
+
+module.exports = { getlistOfSubject, getlistOfSubjectById, createLostOfSubject, deletelistofSubById, updateListOfSub, getlistOfSubjectByGroupId, getlistOfSubjectBySubGroupId, checkListOfSubjectExists, deleteListOfSubjectByGroupIdSubjectIdAndSemester, getSubjectIdsByGroupId };

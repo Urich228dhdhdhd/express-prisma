@@ -15,10 +15,15 @@ datasource db {
 
 model User {
   id       Int     @id @default(autoincrement())
+  first_name String
+  middle_name String
+  last_name String
   username String  @unique
   password String
   role     String  @default("CURATOR")
   groups   Group[]
+
+  PerformanceReport PerformanceReport[] 
 }
 
 model Group {
@@ -26,8 +31,9 @@ model Group {
   group_name      String          @unique
   curator_id      Int?
   status_group    String          @default("ACTIVE")
-  semester_number Int             @default(1)
-  curator         User?           @relation(fields: [curator_id], references: [id])
+  start_year      Int
+  end_year        Int
+  curator         User?           @relation(fields: [curator_id], references: [id],onDelete: SetNull)
   student         Student[]
   ListOfSubject   ListOfSubject[]
 }
@@ -40,7 +46,7 @@ model Student {
   tel_number    String?
   date_birthday DateTime?
   group_id      Int
-  group         Group     @relation(fields: [group_id], references: [id])
+  group         Group     @relation(fields: [group_id], references: [id], onDelete: Cascade)
   Absence       Absence[]
   Mark          Mark[]
 
@@ -50,7 +56,7 @@ model Student {
 
 model Subject {
   id                 Int             @id @default(autoincrement())
-  subject_name_short String          @unique
+  subject_name_short String           @unique
   subject_name_long  String          @unique
   ListOfSubject      ListOfSubject[]
   Mark               Mark[]
@@ -60,12 +66,13 @@ model ListOfSubject {
   id              Int @id @default(autoincrement())
   subject_id      Int
   group_id        Int
-  semester_number Int
+  semester_id     Int 
 
-  subject Subject @relation(fields: [subject_id], references: [id]) 
-  group   Group   @relation(fields: [group_id], references: [id])
+  semester Semester @relation(fields: [semester_id],references: [id],onDelete: Cascade)
+  subject Subject @relation(fields: [subject_id], references: [id],onDelete: Cascade) 
+  group   Group   @relation(fields: [group_id], references: [id],onDelete: Cascade)
 
-  @@unique([subject_id, group_id, semester_number]) 
+  @@unique([subject_id, group_id, semester_id]) 
 }
 
 model Absence {
@@ -77,7 +84,7 @@ model Absence {
   absence_order   Int
   absence_resp    Int
   absence_disresp Int
-  student         Student @relation(fields: [student_id], references: [id])
+  student         Student @relation(fields: [student_id], references: [id],onDelete: Cascade)
 
   @@unique([student_id, year, month])
 }
@@ -86,8 +93,10 @@ model Semester {
   id              Int    @id @default(autoincrement())
   semester_part   Int    
   semester_number Int    
-  semester_year   Int    
+  semester_year   Int 
+
   Mark            Mark[] 
+  ListOfSubject ListOfSubject[]
 
   @@unique([semester_number, semester_year]) 
 }
@@ -98,10 +107,21 @@ model Mark {
   semester_id Int
   subject_id  Int
   mark        String
+  is_exam     Boolean @default(false)
 
-  student  Student  @relation(fields: [student_id], references: [id])
-  semester Semester @relation(fields: [semester_id], references: [id])
-  subject  Subject  @relation(fields: [subject_id], references: [id])
+  student  Student  @relation(fields: [student_id], references: [id],onDelete: Cascade )
+  semester Semester @relation(fields: [semester_id], references: [id],onDelete: Cascade)
+  subject  Subject  @relation(fields: [subject_id], references: [id],onDelete: Cascade)
 
   @@unique([student_id, semester_id, subject_id])
+}
+
+model PerformanceReport{
+  id Int @id @default(autoincrement())
+  user_id Int
+   reportName String
+  filePath   String
+  created_at DateTime @default(now())
+
+  user User @relation(fields: [user_id] ,references: [id],onDelete: Cascade) 
 }

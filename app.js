@@ -11,6 +11,9 @@ const listOfSubjectRoutes = require('./routes/listOfSubjectRoutes');
 const absenceRoutes = require('./routes/absenceRoutes');
 const semesterRoutes = require('./routes/semesterRoutes');
 const markRoutes = require('./routes/markRoutes');
+const reportRoutes = require('./routes/reportRoutes');
+
+const srartRoutes = require('./routes/start_routes');
 
 app.use(express.json());
 
@@ -22,6 +25,9 @@ app.use('/api/listOfSubjects', listOfSubjectRoutes);
 app.use('/api/absences', absenceRoutes);
 app.use('/api/semesters', semesterRoutes);
 app.use('/api/marks', markRoutes);
+app.use('/api/reports', reportRoutes);
+
+app.use('/api/starts', srartRoutes);
 
 // Установка порта через переменную окружения или по умолчанию на 3000
 const PORT = process.env.PORT || 3000;

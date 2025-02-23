@@ -31,34 +31,40 @@ router.get('/:id', async (request, response) => {
 // Создание студента
 router.post('/', async (request, response) => {
     const { first_name, middle_name, last_name, tel_number, date_birthday, group_id } = request.body;
+    if (!first_name || !middle_name || !last_name || !tel_number || !date_birthday || !group_id) {
+        return response.status(400).json({ message: 'Заполните все поля для успешного создания' });
+    }
     try {
         const student = await createStudent(first_name, middle_name, last_name, tel_number, date_birthday, group_id);
         response.status(200).json(student);
 
     } catch (error) {
-        if (error.code === 'P2002') {
+        if (error.message === "Такой студент уже существует") {
             return response.status(400).json({
                 message: 'Такой студент уже существует.'
             });
         }
-        console.error('Ошибка при создании студента:', error);
-        response.status(500).json({ message: 'Ошибка при создании студента' });
-
-
+        return response.status(500).json({ message: 'Ошибка сервера' });
     }
 });
 
 // Обновление студента
 router.put('/:id', async (request, response) => {
     const { first_name, middle_name, last_name, tel_number, date_birthday, group_id } = request.body;
+    if (!first_name || !middle_name || !last_name || !tel_number || !date_birthday || !group_id) {
+        return response.status(400).json({ message: 'Заполните все поля для успешного обновления' });
+    }
     const studentId = Number(request.params.id);
 
     try {
         const student = await updateStudent(studentId, first_name, middle_name, last_name, tel_number, date_birthday, group_id);
         response.status(200).json(student);
     } catch (error) {
-        console.error('Ошибка при обновлении студента:', error);
-        response.status(500).json({ message: 'Ошибка при обновлении студента' });
+
+        if (error.message === "Студент с такими данными уже существует") {
+            return response.status(400).json({ message: "Студент с такими данными уже существует" });
+        }
+        return response.status(500).json({ message: 'Ошибка при обновлении студента' });
     }
 });
 
